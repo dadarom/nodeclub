@@ -43,6 +43,7 @@ exports.sendMail = sendMail;
  */
 exports.sendActiveMail = function (who, token, name) {
   var from    = util.format('%s <%s>', config.name, config.mail_opts.auth.user);
+  // var from = 'ycyz1923@126.com';
   var to      = who;
   var subject = config.name + '社区帐号激活';
   var html    = '<p>您好：' + name + '</p>' +
