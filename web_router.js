@@ -54,6 +54,9 @@ router.post('/search_pass', sign.updateSearchPass);  // 更新密码
 router.get('/reset_pass', sign.resetPass);  // 进入重置密码页面
 router.post('/reset_pass', sign.updatePass);  // 更新密码
 
+// wechat
+router.get('/auth/wechat', sign.showLoginWechat); // 进入微信登录页面
+
 // user controller
 router.get('/user/:name', user.index); // 用户个人主页
 router.get('/setting', auth.userRequired, user.showSetting); // 用户个人设置页
@@ -102,7 +105,7 @@ router.post('/upload', auth.userRequired, topic.upload); //上传图片
 // static
 router.get('/about', staticController.about);
 router.get('/faq', staticController.faq);
-router.get('/getstart', staticController.getstart);
+router.get('/start', staticController.start);
 router.get('/robots.txt', staticController.robots);
 router.get('/api', staticController.api);
 

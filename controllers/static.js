@@ -1,10 +1,16 @@
 var multiline = require('multiline');
 // static page
 // About
+// exports.about = function (req, res, next) {
+//   res.render('static/about', {
+//     pageTitle: '关于我们'
+//   });
+// };
+
 exports.about = function (req, res, next) {
-  res.render('static/about', {
-    pageTitle: '关于我们'
-  });
+    res.render('static/aboutYz', {
+        pageTitle: '关于我们'
+    });
 };
 
 // FAQ
@@ -12,10 +18,15 @@ exports.faq = function (req, res, next) {
   res.render('static/faq');
 };
 
-exports.getstart = function (req, res) {
-  res.render('static/getstart', {
-    pageTitle: 'Node.js 新手入门'
-  });
+// exports.getstart = function (req, res) {
+//   res.render('static/getstart', {
+//     pageTitle: 'Node.js 新手入门'
+//   });
+// };
+exports.start = function (req, res) {
+    res.render('static/getstartYz', {
+        pageTitle: '新手入门'
+    });
 };
 
 

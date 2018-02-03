@@ -47,6 +47,7 @@
   .js('/public/libs/markdownit.js')
   .js('/public/libs/code-prettify/prettify.js')
   .js('/public/libs/qrcode.js')
+  <!--.js('/public/libs/wxLogin.js')-->
   .js('/public/javascripts/main.js')
   .js('/public/javascripts/responsive.js')
   .done(assets, config.site_static_host, config.mini_assets)
@@ -67,7 +68,7 @@
 <div class='navbar'>
   <div class='navbar-inner'>
     <div class='container'>
-      <a class='brand' href='/'>
+      <a class='brand' href='/' style="padding-top: 8px;">
         <% if (config.site_logo) {%>
           <img src="<%- staticFile(config.site_logo) %>" />
         <%} else {%>
@@ -90,8 +91,8 @@
             </a>
         </li>
         <% } %>
-        <li><a href='/getstart'>新手入门</a></li>
-        <li><a href='/api'>API</a></li>
+        <li><a href='/start'>新手入门</a></li>
+        <!--<li><a href='/api'>API</a></li>-->
         <%
         var site_navs = config.site_navs || [];
         for (var i = 0, l = site_navs.length; i < l; i++) {

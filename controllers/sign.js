@@ -7,6 +7,7 @@ var tools          = require('../common/tools');
 var utility        = require('utility');
 var authMiddleWare = require('../middlewares/auth');
 var uuid           = require('node-uuid');
+var OAuth          = require('wechat-oauth');
 
 //sign up
 exports.showSignup = function (req, res) {
@@ -86,6 +87,37 @@ exports.signup = function (req, res, next) {
 exports.showLogin = function (req, res) {
   req.session._loginReferer = req.headers.referer;
   res.render('sign/signin');
+};
+
+/**
+ * Show user wechat login page.
+ *
+ * @param  {HttpRequest} req
+ * @param  {HttpResponse} res
+ */
+exports.showLoginWechat = function (req, res) {
+
+    // var client = new OAuth(config.wechat.appId, config.wechat.appSecret);
+    // var url = client.getAuthorizeURLForWebsite('www.baidu.com', 'mystate', 'snsapi_base');//snsapi_login
+
+    var client = new OAuth(config.wechat.appId, config.wechat.appSecret, function (openid, callback) {
+        // 传入一个根据openid获取对应的全局token的方法
+        // 在getUser时会通过该方法来获取token
+        fs.readFile(openid +':access_token.txt', 'utf8', function (err, txt) {
+            if (err) {return callback(err);}
+            callback(null, JSON.parse(txt));
+        });
+    }, function (openid, token, callback) {
+        // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+        // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+        // 持久化时请注意，每个openid都对应一个唯一的token!
+        fs.writeFile(openid + ':access_token.txt', JSON.stringify(token), callback);
+    });
+
+    var url = client.getAuthorizeURLForWebsite('127.0.0.1');
+
+    // req.session._loginReferer = req.headers.referer;
+    res.render('sign/signin_wechat', {"url" : url});
 };
 
 /**
